@@ -39,7 +39,7 @@ export default function Projects() {
               Things I&apos;ve built
             </h2>
           </div>
-          <span style={{ fontSize: 13, color: "var(--fg3)" }}>Click to explore →</span>
+          <span style={{ fontSize: 13, color: "var(--fg3)" }}>Click a card to explore →</span>
         </div>
 
         <div className="projects-grid">

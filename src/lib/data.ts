@@ -1,4 +1,4 @@
-export const NAV_LINKS = ["About", "Projects", "Skills", "Blog"] as const;
+export const NAV_LINKS = ["About", "Projects", "Skills"] as const;
 
 export const PROJECTS = [
   {
@@ -8,7 +8,7 @@ export const PROJECTS = [
     description:
       "An AI-powered content engine that takes your website URL and auto-generates SEO-optimized, AI-citation-backed articles, plus platform-native content for LinkedIn, Reddit, Twitter, Amazon A+ pages, and blogs. Built for marketers who want to move fast without sacrificing quality.",
     stack: ["Next.js", "Tailwind CSS", "PostgreSQL", "GCP"],
-    role: "Builder — 0 to 1",
+    role: "Product Lead @ Growthz",
     color: "#eef3fb",
     accent: "oklch(48% 0.14 248)",
     url: "https://rightcontent.ai/",
@@ -40,14 +40,7 @@ export const EXPERIENCE = [
     company: "Growthz",
     role: "AI Full Stack Developer",
     period: "Now",
-    desc: "Building an end-to-end AI marketing platform — full ownership across the stack, from ML pipelines to product.",
-    current: true,
-  },
-  {
-    company: "Rightcontent.ai",
-    role: "Builder — 0 to 1",
-    period: "Now",
-    desc: "Designed and shipped an AI content engine that generates SEO-optimised, citation-backed articles from a URL.",
+    desc: "Building an end-to-end AI marketing platform — full ownership across the stack, from ML pipelines to product. Led the design and shipment of Rightcontent.ai, an AI content engine.",
     current: true,
   },
   {
@@ -80,20 +73,5 @@ export const EXPERIENCE = [
   },
 ];
 
-export const BLOG_POSTS = [
-  {
-    title: "What \"0 to 1\" actually means when you're the only engineer",
-    date: "Coming soon",
-    tag: "Essay",
-  },
-  {
-    title: "How I built an AI citation engine that doesn't hallucinate",
-    date: "Coming soon",
-    tag: "Technical",
-  },
-  {
-    title: "The unglamorous side of shipping AI products",
-    date: "Coming soon",
-    tag: "Reflection",
-  },
-];
+export const BLOG_POSTS = [] as const;
+
