@@ -31,7 +31,12 @@ export const SKILLS: Record<string, string[]> = {
   Languages: ["TypeScript", "JavaScript", "Python", "SQL", "HTML/CSS"],
   Frontend: ["Next.js", "React", "React Native", "Tailwind CSS", "Material UI"],
   Backend: ["Node.js", "Express", "PostgreSQL", "MongoDB", "Prisma"],
-  "AI / ML": ["GenAI Pipelines", "RAG", "Prompt Engineering", "LLM Integration"],
+  "AI / ML": [
+    "GenAI Pipelines",
+    "RAG",
+    "Prompt Engineering",
+    "LLM Integration",
+  ],
   Tools: ["AWS", "Azure", "Docker", "Git", "GitHub Actions", "TurboRepo"],
 };
 
@@ -74,4 +79,3 @@ export const EXPERIENCE = [
 ];
 
 export const BLOG_POSTS = [] as const;
-

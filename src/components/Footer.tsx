@@ -2,7 +2,7 @@
 
 const LINKS = [
   { label: "GitHub", url: "https://github.com/prakhar-commits" },
-  { label: "LinkedIn", url: "https://linkedin.com" },
+  { label: "LinkedIn", url: "https://www.linkedin.com/in/prakhar-bansal-dev/" },
   { label: "Email", url: "mailto:prakharb56@gmail.com" },
 ];
 
