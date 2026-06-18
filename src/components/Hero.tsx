@@ -37,9 +37,6 @@ export default function Hero() {
             display: "block",
           }}
         />
-        <span style={{ fontSize: 12, color: "var(--fg2)", fontWeight: 400 }}>
-          Open to the right opportunity
-        </span>
       </div>
 
       <h1
