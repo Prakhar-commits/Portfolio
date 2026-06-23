@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
-      <body style={{ fontFamily: "var(--font-body)" }}>{children}</body>
+      <body suppressHydrationWarning style={{ fontFamily: "var(--font-body)" }}>{children}</body>
     </html>
   );
 }

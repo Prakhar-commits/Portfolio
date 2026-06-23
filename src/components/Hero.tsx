@@ -104,7 +104,7 @@ export default function Hero() {
         </a>
 
         <a
-          href="/Prakhar_Bansal_Resume.docx"
+          href="/resume.pdf"
           download
           style={{
             color: "var(--fg2)",
