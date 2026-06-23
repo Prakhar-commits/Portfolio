@@ -28,18 +28,6 @@ export default function Hero() {
           width: "fit-content",
         }}
       >
-        <span
-          style={{
-            width: 7,
-            height: 7,
-            borderRadius: "50%",
-            background: "#4ade80",
-            display: "block",
-          }}
-        />
-        <span style={{ fontSize: 12, color: "var(--fg2)", fontWeight: 400 }}>
-          Open to the right opportunity
-        </span>
       </div>
 
       <h1
