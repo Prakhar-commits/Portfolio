@@ -3,26 +3,28 @@
 import { useState, useEffect } from "react";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import Metrics from "@/components/Metrics";
+import Work from "@/components/Work";
 import About from "@/components/About";
-import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import Footer from "@/components/Footer";
 
+const SECTIONS = ["work", "about", "stack", "contact"];
+
 export default function Home() {
-  const [activeSection, setActiveSection] = useState("");
+  const [active, setActive] = useState("");
 
   useEffect(() => {
-    const sectionIds = ["about", "projects", "skills"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+          if (entry.isIntersecting) setActive(entry.target.id);
         });
       },
-      { threshold: 0.3 }
+      { rootMargin: "-30% 0px -55% 0px" }
     );
 
-    sectionIds.forEach((id) => {
+    SECTIONS.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -32,11 +34,14 @@ export default function Home() {
 
   return (
     <>
-      <Nav active={activeSection} />
-      <Hero />
-      <About />
-      <Projects />
-      <Skills />
+      <Nav active={active} />
+      <main>
+        <Hero />
+        <Metrics />
+        <Work />
+        <About />
+        <Skills />
+      </main>
       <Footer />
     </>
   );

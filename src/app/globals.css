@@ -1,17 +1,34 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   Tokens
+   Ink on paper. One signal colour, used sparingly and never
+   for decoration — only to mark what is live or current.
+   ───────────────────────────────────────────────────────────── */
+
 :root {
-  --bg: #f9f8f6;
-  --bg2: #f2f1ee;
-  --fg: #1a1916;
-  --fg2: #6b6a67;
-  --fg3: #a8a7a4;
-  --accent: oklch(48% 0.14 248);
-  --accent-light: oklch(95% 0.04 248);
-  --border: #e5e4e0;
+  --paper: #faf9f7;
+  --paper-2: #f3f1ec;
+  --ink: #141310;
+  --ink-2: #5e5b54;
+  --ink-3: #97948c;
+  --rule: #e3e0d9;
+  --rule-strong: #cbc7bd;
+  --signal: #a8492a;
+
+  --measure: 62ch;
+  --gutter: 2rem;
+  --shell: 1080px;
+
+  /* One motion vocabulary for the whole site. */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --fast: 180ms;
+  --slow: 420ms;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -19,105 +36,612 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.65;
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--accent-light);
+  background: var(--ink);
+  color: var(--paper);
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rule-strong); }
 
-@keyframes fadeDown {
-  0%, 100% { opacity: 0.3; transform: translateY(-4px); }
-  50% { opacity: 1; transform: translateY(4px); }
+a { color: inherit; }
+
+/* ─────────────────────────────────────────────────────────────
+   Typography
+   Display serif for names and headlines, mono for every piece
+   of metadata, sans for prose. Nothing else.
+   ───────────────────────────────────────────────────────────── */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 0.94;
+  letter-spacing: -0.015em;
 }
 
-.scroll-line {
-  animation: fadeDown 2s ease infinite;
+/* Sprat ships no italic, so the second voice is a tonal shift rather than a
+   slanted one. Synthesis is off everywhere so nothing gets faked. */
+.display em {
+  font-style: normal;
+  color: var(--ink-3);
 }
 
-/* ── Responsive layout classes ── */
+.h-xl { font-size: clamp(3.4rem, 12vw, 8.5rem); }
+.h-lg { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+.h-md { font-size: clamp(1.75rem, 3.4vw, 2.6rem); }
 
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: 5rem;
-  align-items: start;
-  max-width: 960px;
-  margin: 0 auto;
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-3);
 }
 
-.projects-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.mono-sm {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.prose {
+  max-width: var(--measure);
+  color: var(--ink-2);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.prose strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Shell & sections
+   ───────────────────────────────────────────────────────────── */
+
+.shell {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(5rem, 12vh, 9rem);
+  border-top: 1px solid var(--rule);
+}
+
+/* Section headers are a mono index + a serif title on one baseline. */
+.section-head {
+  display: flex;
+  align-items: baseline;
   gap: 1.25rem;
+  margin-bottom: 3.5rem;
 }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.section-head .rule {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Hero
+   ───────────────────────────────────────────────────────────── */
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding-block: 8rem 4rem;
+}
+
+.hero-meta {
+  display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
-.footer-grid {
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--signal);
+  display: inline-block;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* No imagery in the hero. The name is the artwork, and a mono spec column
+   carries the facts that would otherwise need a subtitle. */
+.hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 15rem;
   gap: 4rem;
-  margin-bottom: 4rem;
+  align-items: end;
 }
 
-.section-pad { padding: 7rem 2rem; }
-.about-section-pad { padding: 6rem 2rem; }
+.hero-spec { display: flex; flex-direction: column; gap: 1.5rem; }
 
-/* Desktop nav / mobile hamburger visibility */
-.nav-desktop { display: flex; gap: 2rem; align-items: center; }
-.nav-hamburger { display: none; align-items: center; justify-content: center; }
+.hero-spec-row {
+  border-top: 1px solid var(--rule);
+  padding-top: 0.7rem;
+}
 
-/* Mobile menu overlay */
-.mobile-menu {
+.hero-spec-row dt { margin-bottom: 0.35rem; }
+
+.hero-spec-row dd {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+@media (max-width: 980px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-spec {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.25rem 2.5rem;
+  }
+  .hero-spec-row { flex: 1 1 11rem; }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 2.75rem;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Links & buttons — underline that draws, never a coloured pill
+   ───────────────────────────────────────────────────────────── */
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.5rem;
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+
+.btn:hover { background: transparent; color: var(--ink); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--rule-strong);
+}
+
+.btn-ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* Inline link with an underline that wipes in from the left. */
+.link {
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--fast) var(--ease);
+}
+
+.link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ─────────────────────────────────────────────────────────────
+   Nav
+   ───────────────────────────────────────────────────────────── */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: background var(--slow) var(--ease), border-color var(--slow) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+.nav[data-scrolled="true"] {
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom-color: var(--rule);
+}
+
+.nav-inner {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-links { display: flex; gap: 2.25rem; align-items: center; }
+
+.nav-link {
+  text-decoration: none;
+  color: var(--ink-3);
+  transition: color var(--fast) var(--ease);
+}
+
+.nav-link[data-active="true"] { color: var(--ink); }
+.nav-link:hover { color: var(--ink); }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--ink);
+  transition: transform var(--fast) var(--ease), opacity var(--fast) var(--ease);
+}
+
+.menu {
   position: fixed;
   inset: 0;
   z-index: 99;
-  background: var(--bg);
+  background: var(--paper);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+  padding: var(--gutter);
+}
+
+.menu a {
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 11vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Metrics strip
+   ───────────────────────────────────────────────────────────── */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.metric {
+  padding: 2.25rem 1.75rem;
+  border-right: 1px solid var(--rule);
+}
+
+.metric:first-child { padding-left: 0; }
+.metric:last-child { border-right: none; }
+
+.metric-value {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-label {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+  max-width: 20ch;
+  text-wrap: balance; /* stops "end-to-end" breaking across lines */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Work index — rows, not cards
+   ───────────────────────────────────────────────────────────── */
+
+/* The "everything below is Growthz" band that sits above the index. */
+.work-context {
+  display: grid;
+  grid-template-columns: 16rem 1fr;
+  gap: 2.5rem;
+  align-items: start;
+  padding: 1.75rem 1.75rem 1.75rem 1.5rem;
+  margin-bottom: 3rem;
+  background: var(--paper-2);
+  border-left: 1px solid var(--signal);
+}
+
+@media (max-width: 720px) {
+  .work-context {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+}
+
+.work-list { border-top: 1px solid var(--rule); }
+
+.work-row {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 4rem 1fr 12rem 2rem;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.9rem 0;
+  font: inherit;
+  color: inherit;
+  position: relative;
+  isolation: isolate; /* keeps the ::before wash behind the row, not the page */
+  transition: padding var(--slow) var(--ease);
+}
+
+/* A wash that wipes in from the left on hover — no shadow, no lift. */
+.work-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 -1.5rem;
+  background: var(--paper-2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--slow) var(--ease);
+  z-index: -1;
+}
+
+.work-row:hover::before,
+.work-row[data-open="true"]::before { transform: scaleX(1); }
+
+.work-row:hover { padding-left: 1.25rem; }
+
+.work-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.work-tagline {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  margin-top: 0.3rem;
+  text-wrap: balance;
+}
+
+.work-mark {
+  justify-self: end;
+  color: var(--ink-3);
+  transition: transform var(--slow) var(--ease), color var(--fast) var(--ease);
+}
+
+.work-row[data-open="true"] .work-mark { transform: rotate(45deg); color: var(--ink); }
+
+.work-panel {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+.work-panel-inner { padding: 0.5rem 0 2.5rem; max-width: 60ch; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; }
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  border: 1px solid var(--rule-strong);
+  padding: 0.3rem 0.6rem;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   About / experience
+   ───────────────────────────────────────────────────────────── */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.aside-block {
+  border-top: 1px solid var(--ink);
+  padding-top: 1.25rem;
+  position: sticky;
+  top: 7rem;
+}
+
+@media (max-width: 900px) {
+  .aside-block { position: static; }
+}
+
+.exp-row {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 1.5rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.exp-company {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Stack
+   ───────────────────────────────────────────────────────────── */
+
+.stack-row {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
   gap: 2rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--rule);
+  align-items: start;
 }
 
-@media (max-width: 768px) {
-  .nav-desktop   { display: none; }
-  .nav-hamburger { display: flex; }
-
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .projects-grid  { grid-template-columns: 1fr; }
-  .skills-grid    { grid-template-columns: repeat(2, 1fr); }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .section-pad       { padding: 4rem 1.5rem; }
-  .about-section-pad { padding: 4rem 1.5rem; }
+.stack-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
 }
 
-@media (max-width: 480px) {
-  .skills-grid { grid-template-columns: 1fr; }
+.stack-item {
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+  transition: color var(--fast) var(--ease);
+  cursor: default;
+}
+
+.stack-item:hover { color: var(--ink); }
+
+/* ─────────────────────────────────────────────────────────────
+   Footer
+   ───────────────────────────────────────────────────────────── */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding-block: clamp(4rem, 10vh, 7rem) 2.5rem;
+}
+
+.footer .mono { color: rgba(250, 249, 247, 0.45); }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4rem;
+  padding-bottom: 4rem;
+}
+
+.footer-links { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.footer-links a {
+  text-decoration: none;
+  color: rgba(250, 249, 247, 0.6);
+  font-size: 0.9375rem;
+  transition: color var(--fast) var(--ease);
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(250, 249, 247, 0.12);
+  padding-bottom: 0.6rem;
+}
+
+.footer-links a:hover { color: var(--paper); }
+
+.footer-base {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(250, 249, 247, 0.15);
+  padding-top: 1.5rem;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .metric:nth-child(2n) { border-right: none; }
+  .metric:nth-child(2n + 1) { padding-left: 0; }
+  .metric:nth-child(-n + 2) { border-bottom: 1px solid var(--rule); }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+@media (max-width: 720px) {
+  :root { --gutter: 1.25rem; }
+
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+
+  .work-row {
+    grid-template-columns: 2.5rem 1fr 1.5rem;
+    gap: 1rem;
+    padding: 1.5rem 0;
+  }
+
+  .work-period { display: none; }
+  .work-row:hover { padding-left: 0.75rem; }
+  .work-panel { grid-template-columns: 2.5rem 1fr; gap: 1rem; }
+
+  .exp-row,
+  .stack-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* Respect the setting. Everything below is decoration. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

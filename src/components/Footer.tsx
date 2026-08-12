@@ -1,117 +1,68 @@
 "use client";
 
+import { motion } from "motion/react";
+import { PROFILE } from "@/lib/data";
+
 const LINKS = [
-  { label: "GitHub", url: "https://github.com/prakhar-commits" },
-  { label: "LinkedIn", url: "https://www.linkedin.com/in/prakhar-bansal-dev/" },
-  { label: "Email", url: "mailto:prakharb56@gmail.com" },
+  { label: "Email", value: PROFILE.email, url: `mailto:${PROFILE.email}` },
+  { label: "GitHub", value: "prakhar-commits", url: PROFILE.github },
+  { label: "LinkedIn", value: "prakhar-bansal-dev", url: PROFILE.linkedin },
+  { label: "Résumé", value: "PDF ↓", url: PROFILE.resume },
 ];
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: "var(--fg)",
-        color: "var(--bg)",
-        padding: "5rem 2rem 3rem",
-      }}
-    >
-      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+    <footer id="contact" className="footer">
+      <div className="shell">
         <div className="footer-grid">
           <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-head)",
-                fontWeight: 700,
-                fontSize: "clamp(2rem, 4vw, 3.5rem)",
-                letterSpacing: "-0.04em",
-                lineHeight: 1.05,
-                marginBottom: "1.5rem",
-                color: "#f9f8f6",
-              }}
+            <motion.h2
+              className="display h-lg"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-15%" }}
+              transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
+              style={{ marginBottom: "1.5rem" }}
             >
-              Let&apos;s build
+              Got something
               <br />
-              something real.
-            </h2>
+              <em style={{ color: "rgba(250,249,247,0.55)" }}>
+                hard to build?
+              </em>
+            </motion.h2>
+
             <a
-              href="mailto:prakharb56@gmail.com"
-              style={{
-                fontSize: 16,
-                color: "#f9f8f6",
-                textDecoration: "none",
-                borderBottom: "1px solid rgba(249,248,246,0.3)",
-                paddingBottom: 2,
-                transition: "border-color 0.2s",
-              }}
-              onMouseEnter={(e) =>
-                ((e.target as HTMLAnchorElement).style.borderColor = "#f9f8f6")
-              }
-              onMouseLeave={(e) =>
-                ((e.target as HTMLAnchorElement).style.borderColor =
-                  "rgba(249,248,246,0.3)")
-              }
+              href={`mailto:${PROFILE.email}`}
+              className="link"
+              style={{ textDecoration: "none", fontSize: "1.0625rem" }}
             >
-              prakharb56@gmail.com
+              {PROFILE.email}
             </a>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              gap: "1.5rem",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {LINKS.map((link) => (
+          <div>
+            <p className="mono" style={{ marginBottom: "1.25rem" }}>
+              Elsewhere
+            </p>
+            <div className="footer-links">
+              {LINKS.map((l) => (
                 <a
-                  key={link.label}
-                  href={link.url}
-                  target={link.url.startsWith("mailto") ? undefined : "_blank"}
-                  rel={
-                    link.url.startsWith("mailto")
-                      ? undefined
-                      : "noopener noreferrer"
-                  }
-                  style={{
-                    color: "rgba(249,248,246,0.5)",
-                    textDecoration: "none",
-                    fontSize: 14,
-                    transition: "color 0.2s",
-                  }}
-                  onMouseEnter={(e) =>
-                    ((e.target as HTMLAnchorElement).style.color = "#f9f8f6")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.target as HTMLAnchorElement).style.color =
-                      "rgba(249,248,246,0.5)")
-                  }
+                  key={l.label}
+                  href={l.url}
+                  target={l.url.startsWith("http") ? "_blank" : undefined}
+                  rel={l.url.startsWith("http") ? "noopener noreferrer" : undefined}
                 >
-                  {link.label} ↗
+                  <span>{l.label}</span>
+                  <span style={{ color: "rgba(250,249,247,0.35)" }}>{l.value}</span>
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "0.5rem",
-            borderTop: "1px solid rgba(249,248,246,0.1)",
-            paddingTop: "1.5rem",
-          }}
-        >
-          <span style={{ fontSize: 13, color: "rgba(249,248,246,0.35)" }}>
-            © 2026 Prakhar Bansal
-          </span>
-          <span style={{ fontSize: 13, color: "rgba(249,248,246,0.35)" }}>
-            AI Full Stack Developer · 0→1 Engineer
-          </span>
+        <div className="footer-base">
+          <span className="mono">© 2026 Prakhar Bansal</span>
+          <span className="mono">Instrument Serif · Geist · Geist Mono</span>
         </div>
       </div>
     </footer>

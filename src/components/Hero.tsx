@@ -1,150 +1,119 @@
 "use client";
 
+import { motion } from "motion/react";
+import { PROFILE } from "@/lib/data";
+
+const ease = [0.22, 0.61, 0.36, 1] as const;
+
+/** The name arrives one line at a time, masked from below. */
+function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
+  return (
+    <span style={{ display: "block", overflow: "hidden" }}>
+      <motion.span
+        style={{ display: "block", paddingBottom: "0.06em" }}
+        initial={{ y: "105%" }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.95, delay, ease }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
+/* The facts that would otherwise need a subtitle, set as a spec sheet. */
+const SPEC = [
+  { term: "Now", value: "Senior Software Engineer, Growthz. Since Jan 2025." },
+  { term: "Cloud", value: "AWS and GCP. Pulumi, Cloud Run, ECS Fargate." },
+  { term: "Focus", value: "Decision engines, AI pipelines, ad platform data." },
+];
+
 export default function Hero() {
   return (
-    <section
-      id="hero"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        maxWidth: 960,
-        margin: "0 auto",
-        padding: "0 2rem",
-      }}
-    >
-      {/* Availability badge */}
-      <div
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 8,
-          background: "var(--bg2)",
-          border: "1px solid var(--border)",
-          padding: "5px 14px",
-          borderRadius: 100,
-          marginBottom: "2.5rem",
-          width: "fit-content",
-        }}
-      >
+    <section id="top" className="hero">
+      <div className="shell hero-inner">
+        <motion.div
+          className="hero-meta"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.15, ease }}
+        >
+          <span className="mono">
+            <span className="live-dot" />
+            {PROFILE.role} at {PROFILE.company}
+          </span>
+          <span className="mono">GSoC &apos;23 · SIH Winner</span>
+        </motion.div>
+
+        <div className="hero-grid">
+          <div>
+            <h1 className="display h-xl" style={{ marginBottom: "2rem" }}>
+              <Line delay={0.1}>Prakhar</Line>
+              <Line delay={0.22}>
+                <em>Bansal</em>
+              </Line>
+            </h1>
+
+            <motion.p
+              className="prose"
+              style={{ maxWidth: "48ch" }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5, ease }}
+            >
+              I take products from <strong>nothing to shipped</strong>: user
+              research and UI through to the AI pipelines and the cloud they run
+              on. A content platform I built alone end to end, a CPA-optimization
+              decision engine that has to explain every call it makes, and the
+              AWS and GCP estate underneath all of it.
+            </motion.p>
+
+            <motion.div
+              className="hero-actions"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.62, ease }}
+            >
+              <a href="#work" className="btn">
+                Selected work
+              </a>
+              <a href={PROFILE.resume} download className="btn btn-ghost">
+                Résumé ↓
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.dl
+            className="hero-spec"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, delay: 0.75, ease }}
+          >
+            {SPEC.map((s) => (
+              <div key={s.term} className="hero-spec-row">
+                <dt className="mono">{s.term}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))}
+          </motion.dl>
+        </div>
       </div>
 
-      <h1
+      <motion.div
+        className="shell"
         style={{
-          fontFamily: "var(--font-head)",
-          fontWeight: 700,
-          fontSize: "clamp(3rem, 7vw, 6rem)",
-          lineHeight: 1.05,
-          letterSpacing: "-0.04em",
-          color: "var(--fg)",
-          marginBottom: "1.5rem",
+          position: "absolute",
+          bottom: "2rem",
+          left: 0,
+          right: 0,
+          zIndex: 1,
         }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.1 }}
       >
-        Prakhar
-        <br />
-        <span style={{ color: "var(--fg3)", fontWeight: 300 }}>Bansal</span>
-      </h1>
-
-      <p
-        style={{
-          fontFamily: "var(--font-head)",
-          fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
-          fontWeight: 400,
-          color: "var(--fg2)",
-          maxWidth: 560,
-          lineHeight: 1.5,
-          marginBottom: "3rem",
-          letterSpacing: "-0.01em",
-        }}
-      >
-        I&apos;m your{" "}
-        <strong style={{ color: "var(--fg)", fontWeight: 600 }}>0→1 engineer</strong> —
-        AI full-stack developer who takes ideas from raw concept to shipped product. 2
-        years building, 2 years learning what shipping really means.
-      </p>
-
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        <a
-          href="#projects"
-          style={{
-            background: "var(--fg)",
-            color: "var(--bg)",
-            padding: "12px 28px",
-            borderRadius: 8,
-            fontSize: 14,
-            fontWeight: 500,
-            textDecoration: "none",
-            transition: "opacity 0.2s",
-            fontFamily: "var(--font-body)",
-          }}
-          onMouseEnter={(e) => ((e.target as HTMLAnchorElement).style.opacity = "0.85")}
-          onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.opacity = "1")}
-        >
-          View projects
-        </a>
-
-        <a
-          href="/resume.pdf"
-          download
-          style={{
-            color: "var(--fg2)",
-            padding: "12px 28px",
-            fontSize: 14,
-            textDecoration: "none",
-            border: "1px solid var(--border)",
-            borderRadius: 8,
-            transition: "border-color 0.2s, color 0.2s",
-            fontFamily: "var(--font-body)",
-          }}
-          onMouseEnter={(e) => {
-            (e.target as HTMLAnchorElement).style.borderColor = "var(--fg3)";
-            (e.target as HTMLAnchorElement).style.color = "var(--fg)";
-          }}
-          onMouseLeave={(e) => {
-            (e.target as HTMLAnchorElement).style.borderColor = "var(--border)";
-            (e.target as HTMLAnchorElement).style.color = "var(--fg2)";
-          }}
-        >
-          Download resume ↓
-        </a>
-      </div>
-
-      {/* Scroll hint */}
-      <div
-        style={{
-          marginTop: "5rem",
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <div
-          className="scroll-line"
-          style={{
-            width: 1,
-            height: 48,
-            background: "linear-gradient(to bottom, transparent, var(--fg3))",
-          }}
-        />
-        <span
-          style={{
-            fontSize: 11,
-            color: "var(--fg3)",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-          }}
-        >
-          Scroll
-        </span>
-      </div>
+        <span className="mono">Scroll ↓</span>
+      </motion.div>
     </section>
   );
 }

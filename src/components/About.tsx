@@ -1,140 +1,93 @@
-import Image from "next/image";
-import { EXPERIENCE } from "@/lib/data";
+"use client";
+
+import { EXPERIENCE, EDUCATION } from "@/lib/data";
+import Reveal, { SectionHead } from "./Reveal";
 
 export default function About() {
   return (
-    <section
-      id="about"
-      className="about-section-pad"
-      style={{
-        background: "var(--bg2)",
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
-      }}
-    >
-      <div className="about-grid">
-        {/* Left */}
-        <div>
-          <p
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "var(--fg3)",
-              marginBottom: 16,
-              fontWeight: 500,
-            }}
-          >
-            About
-          </p>
-          <h2
-            style={{
-              fontFamily: "var(--font-head)",
-              fontSize: "2.2rem",
-              fontWeight: 700,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
-              marginBottom: "2rem",
-            }}
-          >
-            Builder,
-            <br />
-            not just coder.
-          </h2>
+    <section id="about" className="section">
+      <div className="shell">
+        <SectionHead index="02 / About" title="How I work" />
 
-          <div
-            style={{
-              width: "100%",
-              maxWidth: 220,
-              borderRadius: 12,
-              overflow: "hidden",
-              border: "1px solid var(--border)",
-            }}
-          >
-            <Image
-              src="/profile.jpg"
-              alt="Prakhar Bansal"
-              width={220}
-              height={280}
-              style={{ width: "100%", height: "auto", display: "block", objectFit: "cover" }}
-            />
-          </div>
-        </div>
+        <div className="about-grid">
+          <Reveal>
+            <div className="aside-block">
+              <p className="mono" style={{ marginBottom: "0.75rem" }}>
+                Education
+              </p>
+              <p style={{ fontSize: "1.0625rem", lineHeight: 1.5 }}>
+                {EDUCATION.school}
+              </p>
+              <p className="prose" style={{ fontSize: "0.9375rem", marginTop: "0.5rem" }}>
+                {EDUCATION.degree}
+              </p>
+              <p className="mono" style={{ marginTop: "0.75rem" }}>
+                {EDUCATION.period} · {EDUCATION.note}
+              </p>
+            </div>
+          </Reveal>
 
-        {/* Right */}
-        <div>
-          <p style={{ fontSize: 16, color: "var(--fg2)", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-            I&apos;m an AI full-stack developer who has spent the past 2 years building
-            real products from scratch — and 2 years before that learning what good
-            software feels like through internships at Mindcase, Avanti Fellows,
-            Code4GovTech, and Google Summer of Code.
-          </p>
-          <p style={{ fontSize: 16, color: "var(--fg2)", lineHeight: 1.8, marginBottom: "2.5rem" }}>
-            I care about the whole thing: the architecture, the AI layer, the UX, and
-            whether it actually ships. I&apos;ve built content engines, marketing platforms,
-            edtech tools, and robotics software. The common thread is taking something
-            from zero to something people use.
-          </p>
+          <div>
+            <Reveal>
+              <p className="prose">
+                I like the problems where the correct answer isn&apos;t obvious
+                and being wrong is expensive. Thrive is the clearest example. A
+                recommendation that moves someone&apos;s ad spend has to explain
+                itself, expire on time, and never silently contradict another
+                lever. So it carries an audit trail, a conflict resolver, and a{" "}
+                <strong>deliberate path back to deterministic rules</strong>{" "}
+                when the model doesn&apos;t have enough data to be trusted.
+              </p>
+            </Reveal>
 
-          {/* Experience timeline */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-            {EXPERIENCE.map((exp, i) => (
-              <div
-                key={i}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "3px 1fr",
-                  gap: "1.25rem",
-                  alignItems: "start",
-                }}
-              >
-                <div
-                  style={{
-                    width: 3,
-                    background: exp.current ? "var(--accent)" : "var(--border)",
-                    borderRadius: 2,
-                    marginTop: 4,
-                    minHeight: 60,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginBottom: 4,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-head)",
-                        fontWeight: 600,
-                        fontSize: 14,
-                        color: "var(--fg)",
-                      }}
-                    >
-                      {exp.company}
-                    </span>
-                    <span style={{ fontSize: 11, color: "var(--fg3)" }}>{exp.period}</span>
+            <Reveal delay={0.08}>
+              <p className="prose" style={{ marginTop: "1.5rem" }}>
+                The same instinct shows up in the infrastructure. Reading
+                Meta&apos;s rate limit headers and applying backpressure instead
+                of retrying into a ban. Idempotent daily aggregates so a re-run
+                can&apos;t double count. Running the GCP and AWS estate side by
+                side, and an in-house NAT that took{" "}
+                <strong>30% off the AWS bill</strong> without touching uptime.
+                None of it is clever for its own sake. It&apos;s what keeps the
+                thing running when nobody&apos;s watching.
+              </p>
+            </Reveal>
+
+            <div style={{ marginTop: "3.5rem" }}>
+              <p className="mono" style={{ marginBottom: "0.5rem" }}>
+                Experience
+              </p>
+              {EXPERIENCE.map((exp, i) => (
+                <Reveal key={exp.company} delay={i * 0.05} y={10}>
+                  <div className="exp-row">
+                    <div>
+                      <div className="exp-company">{exp.company}</div>
+                      <div className="mono" style={{ marginTop: "0.4rem" }}>
+                        {exp.period}
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={{
+                          fontSize: "0.9375rem",
+                          fontWeight: 500,
+                          marginBottom: "0.4rem",
+                          color: exp.current ? "var(--signal)" : "var(--ink)",
+                        }}
+                      >
+                        {exp.role}
+                      </div>
+                      <p
+                        className="prose"
+                        style={{ fontSize: "0.9375rem", lineHeight: 1.65 }}
+                      >
+                        {exp.desc}
+                      </p>
+                    </div>
                   </div>
-                  <span
-                    style={{
-                      fontSize: 12,
-                      color: "var(--accent)",
-                      fontWeight: 500,
-                      display: "block",
-                      marginBottom: 4,
-                    }}
-                  >
-                    {exp.role}
-                  </span>
-                  <p style={{ fontSize: 13, color: "var(--fg2)", lineHeight: 1.6 }}>
-                    {exp.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </div>
