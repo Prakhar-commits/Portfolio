@@ -529,6 +529,36 @@ a { color: inherit; }
   line-height: 1.2;
 }
 
+/* Growthz's internal progression — a dotted vertical line, not a row. */
+.timeline { position: relative; }
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 1px;
+  background: var(--rule);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-dot {
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
 /* ─────────────────────────────────────────────────────────────
    Stack
    ───────────────────────────────────────────────────────────── */

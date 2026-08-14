@@ -24,7 +24,19 @@ function Row({ project, open, onToggle }: { project: Project; open: boolean; onT
         <span className="mono">{project.index}</span>
 
         <span>
-          <span className="work-title display">{project.name}</span>
+          {project.url ? (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="work-title display link"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {project.name}
+            </a>
+          ) : (
+            <span className="work-title display">{project.name}</span>
+          )}
           <span className="work-tagline" style={{ display: "block" }}>
             {project.tagline}
           </span>

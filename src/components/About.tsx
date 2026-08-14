@@ -1,6 +1,6 @@
 "use client";
 
-import { EXPERIENCE, EDUCATION } from "@/lib/data";
+import { EXPERIENCE, EDUCATION, GROWTHZ, GROWTHZ_TIMELINE } from "@/lib/data";
 import Reveal, { SectionHead } from "./Reveal";
 
 export default function About() {
@@ -57,6 +57,51 @@ export default function About() {
               <p className="mono" style={{ marginBottom: "0.5rem" }}>
                 Experience
               </p>
+
+              <Reveal y={10}>
+                <div className="exp-row">
+                  <div>
+                    <div className="exp-company">{GROWTHZ.name}</div>
+                    <div className="mono" style={{ marginTop: "0.4rem" }}>
+                      {GROWTHZ.since} · {GROWTHZ.tenure}
+                    </div>
+                  </div>
+                  <div>
+                    <p
+                      className="prose"
+                      style={{ fontSize: "0.9375rem", lineHeight: 1.65, marginBottom: "1.75rem" }}
+                    >
+                      {GROWTHZ.desc}
+                    </p>
+
+                    <div className="timeline">
+                      {GROWTHZ_TIMELINE.map((stage) => (
+                        <div className="timeline-item" key={stage.role}>
+                          <span
+                            className="timeline-dot"
+                            style={{
+                              background: stage.current ? "var(--signal)" : "var(--rule-strong)",
+                            }}
+                          />
+                          <div
+                            style={{
+                              fontSize: "0.9375rem",
+                              fontWeight: 500,
+                              color: stage.current ? "var(--signal)" : "var(--ink)",
+                            }}
+                          >
+                            {stage.role}
+                          </div>
+                          <div className="mono" style={{ marginTop: "0.3rem" }}>
+                            {stage.type} · {stage.period}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+
               {EXPERIENCE.map((exp, i) => (
                 <Reveal key={exp.company} delay={i * 0.05} y={10}>
                   <div className="exp-row">

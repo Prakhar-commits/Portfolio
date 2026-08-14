@@ -23,7 +23,7 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
 
 /* The facts that would otherwise need a subtitle, set as a spec sheet. */
 const SPEC = [
-  { term: "Now", value: "Senior Software Engineer, Growthz. Since Jan 2025." },
+  { term: "Now", value: "SDE2, Growthz. Since Jan 2025." },
   { term: "Cloud", value: "AWS and GCP. Pulumi, Cloud Run, ECS Fargate." },
   { term: "Focus", value: "Decision engines, AI pipelines, ad platform data." },
 ];

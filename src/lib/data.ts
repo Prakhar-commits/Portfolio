@@ -2,7 +2,7 @@ export const NAV_LINKS = ["Work", "About", "Stack"] as const;
 
 export const PROFILE = {
   name: "Prakhar Bansal",
-  role: "Senior Software Engineer",
+  role: "SDE2",
   company: "Growthz",
   email: "prakharb56@gmail.com",
   github: "https://github.com/prakhar-commits",
@@ -18,11 +18,29 @@ export const PROFILE = {
 export const GROWTHZ = {
   name: "growthz.ai",
   url: "https://www.growthz.ai/",
-  role: "Senior Software Engineer",
+  role: "SDE2",
   since: "Jan 2025",
+  tenure: "1.5+ yrs",
   blurb:
     "Growthz builds marketing automation: URL scraping, AI creative generation, campaign management and analytics across Meta, Reddit, LinkedIn, ASA, Google Ads, DV360 and AppsFlyer. Everything below is work I own or co-own there.",
+  desc: "Own Thrive end to end and sit second on Wildcard's commit list. Designed the video ad pipeline, and own the GCP and AWS infrastructure: Cloud Run, Cloud Tasks and Cloud SQL alongside Pulumi provisioned ECS Fargate, RDS and S3. Cut AWS spend roughly 30% at 99% uptime. Also client side, scoping and running accounts directly.",
 };
+
+/** Growthz career progression, rendered as a dotted timeline in About. */
+export const GROWTHZ_TIMELINE = [
+  {
+    role: "SDE2",
+    type: "Full-time",
+    period: "Aug 2026 – Present",
+    current: true,
+  },
+  {
+    role: "SDE1",
+    type: "Full-time",
+    period: "Jan 2025 – Aug 2026",
+    current: false,
+  },
+] as const;
 
 /** Numbers worth stating plainly. Each one is a claim from the resume. */
 export const METRICS = [
@@ -106,13 +124,6 @@ export const PROJECTS = [
 ] as const;
 
 export const EXPERIENCE = [
-  {
-    company: "Growthz",
-    role: "Senior Software Engineer",
-    period: "Jan 2025 to Present",
-    desc: "Own Thrive end to end and sit second on Wildcard's commit list. Designed the video ad pipeline, and own the GCP and AWS infrastructure: Cloud Run, Cloud Tasks and Cloud SQL alongside Pulumi provisioned ECS Fargate, RDS and S3. Cut AWS spend roughly 30% at 99% uptime. Also client side, scoping and running accounts directly.",
-    current: true,
-  },
   {
     company: "Mindcase",
     role: "AI Full Stack Developer Intern",
