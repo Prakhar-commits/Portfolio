@@ -41,13 +41,13 @@ const mono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Prakhar Bansal, Senior Software Engineer",
+  title: "Prakhar Bansal, SDE-2",
   description:
-    "Senior Software Engineer at Growthz. Decision engines, ad-platform integrations, AI pipelines, and the AWS and GCP infrastructure underneath them.",
+    "SDE-2 at Growthz. Decision engines, ad-platform integrations, AI pipelines, and the AWS and GCP infrastructure underneath them.",
   openGraph: {
-    title: "Prakhar Bansal, Senior Software Engineer",
+    title: "Prakhar Bansal, SDE-2",
     description:
-      "Senior Software Engineer at Growthz. Decision engines, ad-platform integrations, AI pipelines, and the AWS and GCP infrastructure underneath them.",
+      "SDE-2 at Growthz. Decision engines, ad-platform integrations, AI pipelines, and the AWS and GCP infrastructure underneath them.",
     type: "website",
   },
 };
